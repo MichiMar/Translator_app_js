@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      item: ""
+    };
+
+    this.getItems = this.getItems.bind(this);
+  }
+
+  componentDidMount() {
+    fetch(
+      "https://dictionaryapi.com/api/v3/references/spanish/json/test?key=bd7705f4-4604-4d56-89d1-53bf64c3d303"
+    )
+      .then(response => response.json())
+      .then(meta => this.setState({ titles: meta }));
+  }
+
+  getItems() {
+    this.setState({
+      item: this.state.item
+    });
+  }
+
+  handleChange = event => {};
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Translator App</h1>
+        <input type="text" />
+        <button>Submit</button>
+      </div>
+    );
+  }
 }
-
-export default App;
